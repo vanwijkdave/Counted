@@ -2,6 +2,7 @@ Package: me.daveapps.counted
 Name: Counted
 Depends: mobilesubstrate
 Version: 1
+Icon: 
 Architecture: iphoneos-arm
 Description: Your days are Counted
 Support: https://github.com/vanwijkdave/Counted/issues

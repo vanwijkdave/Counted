@@ -11,8 +11,6 @@
 -(_UILegibilitySettings *)legibilitySettings;
 @end
 
-
-
 @interface SBFLockScreenDateSubtitleView : UIView <UIGestureRecognizerDelegate>
 -(NSString *)string;
 -(void)_updateForCurrentSizeCategory;
@@ -183,7 +181,7 @@ NSDate *myDate;
 		_UILegibilitySettings *settings = label.legibilitySettings;
 		countDownLabel.textColor = settings.primaryColor;
 
-		//font
+		//font weight
 		if (font == 0) {
 			countDownLabel.font = [UIFont systemFontOfSize: 21];
 		} else if (font == 1) {
@@ -196,8 +194,6 @@ NSDate *myDate;
 
 		
 		self.frame = frame;
-
-
 		activated = true;
 	}
 
