@@ -1,8 +1,8 @@
 Package: me.daveapps.counted
 Name: Counted
-Depends: mobilesubstrate
+Depends: mobilesubstrate, ws.hbang.common (>= 1.11)
 Version: 1
-Icon: 
+Icon: https://daveapps.nl/tweaks/icon_counted_site.png
 Architecture: iphoneos-arm
 Description: Your days are Counted
 Support: https://github.com/vanwijkdave/Counted/issues

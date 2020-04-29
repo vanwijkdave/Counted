@@ -12,8 +12,6 @@
 -(_UILegibilitySettings *)legibilitySettings;
 @end
 
-
-
 @interface SBFLockScreenDateSubtitleView : UIView <UIGestureRecognizerDelegate>
 -(NSString *)string;
 -(void)_updateForCurrentSizeCategory;
@@ -71,10 +69,10 @@ NSDate *myDate;
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class SBFLockScreenDateView; @class CSCoverSheetViewBase; @class SBFLockScreenDateSubtitleDateView; 
+@class SBFLockScreenDateSubtitleDateView; @class CSCoverSheetViewBase; @class SBFLockScreenDateView; 
 static void (*_logos_orig$_ungrouped$CSCoverSheetViewBase$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL CSCoverSheetViewBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$CSCoverSheetViewBase$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL CSCoverSheetViewBase* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$CSCoverSheetViewBase$handleSingleTap$(_LOGOS_SELF_TYPE_NORMAL CSCoverSheetViewBase* _LOGOS_SELF_CONST, SEL, UITapGestureRecognizer *); static void (*_logos_orig$_ungrouped$SBFLockScreenDateView$layoutSubviews)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBFLockScreenDateView$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateView* _LOGOS_SELF_CONST, SEL); static void (*_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$setAccessoryView$)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL, UIView *); static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$setAccessoryView$(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL, UIView *); static void (*_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$setDate$)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL, NSDate *); static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$setDate$(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL, NSDate *); static void (*_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$_setDate$inTimeZone$)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL, NSDate *, id); static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$_setDate$inTimeZone$(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL, NSDate *, id); static id (*_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$date)(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL); static id _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$date(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$closeCountdown(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL); static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$openCountdown(_LOGOS_SELF_TYPE_NORMAL SBFLockScreenDateSubtitleDateView* _LOGOS_SELF_CONST, SEL); 
 
-#line 52 "Tweak.xm"
+#line 50 "Tweak.xm"
 
 static void _logos_method$_ungrouped$CSCoverSheetViewBase$layoutSubviews(_LOGOS_SELF_TYPE_NORMAL CSCoverSheetViewBase* _LOGOS_SELF_CONST __unused self, SEL __unused _cmd) {
 	if (!addedView) {
@@ -222,8 +220,6 @@ static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$openCount
 
 		
 		self.frame = frame;
-
-
 		activated = true;
 	}
 
@@ -233,7 +229,7 @@ static void _logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$openCount
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_7d5e59f6(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_901ed790(int __unused argc, char __unused **argv, char __unused **envp) {
 	addedView = false;
 	activated = false;
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
@@ -248,4 +244,4 @@ static __attribute__((constructor)) void _logosLocalCtor_7d5e59f6(int __unused a
 }
 static __attribute__((constructor)) void _logosLocalInit() {
 {Class _logos_class$_ungrouped$CSCoverSheetViewBase = objc_getClass("CSCoverSheetViewBase"); MSHookMessageEx(_logos_class$_ungrouped$CSCoverSheetViewBase, @selector(layoutSubviews), (IMP)&_logos_method$_ungrouped$CSCoverSheetViewBase$layoutSubviews, (IMP*)&_logos_orig$_ungrouped$CSCoverSheetViewBase$layoutSubviews);{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; memcpy(_typeEncoding + i, @encode(UITapGestureRecognizer *), strlen(@encode(UITapGestureRecognizer *))); i += strlen(@encode(UITapGestureRecognizer *)); _typeEncoding[i] = '\0'; class_addMethod(_logos_class$_ungrouped$CSCoverSheetViewBase, @selector(handleSingleTap:), (IMP)&_logos_method$_ungrouped$CSCoverSheetViewBase$handleSingleTap$, _typeEncoding); }Class _logos_class$_ungrouped$SBFLockScreenDateView = objc_getClass("SBFLockScreenDateView"); MSHookMessageEx(_logos_class$_ungrouped$SBFLockScreenDateView, @selector(layoutSubviews), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateView$layoutSubviews, (IMP*)&_logos_orig$_ungrouped$SBFLockScreenDateView$layoutSubviews);Class _logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView = objc_getClass("SBFLockScreenDateSubtitleDateView"); MSHookMessageEx(_logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView, @selector(setAccessoryView:), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$setAccessoryView$, (IMP*)&_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$setAccessoryView$);MSHookMessageEx(_logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView, @selector(setDate:), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$setDate$, (IMP*)&_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$setDate$);MSHookMessageEx(_logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView, @selector(_setDate:inTimeZone:), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$_setDate$inTimeZone$, (IMP*)&_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$_setDate$inTimeZone$);MSHookMessageEx(_logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView, @selector(date), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$date, (IMP*)&_logos_orig$_ungrouped$SBFLockScreenDateSubtitleDateView$date);{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; _typeEncoding[i] = '\0'; class_addMethod(_logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView, @selector(closeCountdown), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$closeCountdown, _typeEncoding); }{ char _typeEncoding[1024]; unsigned int i = 0; _typeEncoding[i] = 'v'; i += 1; _typeEncoding[i] = '@'; i += 1; _typeEncoding[i] = ':'; i += 1; _typeEncoding[i] = '\0'; class_addMethod(_logos_class$_ungrouped$SBFLockScreenDateSubtitleDateView, @selector(openCountdown), (IMP)&_logos_method$_ungrouped$SBFLockScreenDateSubtitleDateView$openCountdown, _typeEncoding); }} }
-#line 223 "Tweak.xm"
+#line 219 "Tweak.xm"
