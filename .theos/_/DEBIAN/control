@@ -1,0 +1,10 @@
+Package: me.daveapps.counted
+Name: Counted
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Dave van Wijk
+Author: Dave van Wijk
+Section: Tweaks
+Version: 1-63+debug
+Installed-Size: 372
