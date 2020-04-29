@@ -2,9 +2,10 @@ Package: me.daveapps.counted
 Name: Counted
 Depends: mobilesubstrate
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Your days are Counted
+Support: https://github.com/vanwijkdave/Counted/issues
 Maintainer: Dave van Wijk
 Author: Dave van Wijk
 Section: Tweaks
-Version: 1-63+debug
+Version: 1-64+debug
 Installed-Size: 372

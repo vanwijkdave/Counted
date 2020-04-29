@@ -109,11 +109,11 @@ bool pickerActivated;
 }
 
 - (void)myGH {
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/vanwijkdave"]  options:@{} completionHandler:nil];
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/vanwijkdave/Counted"]  options:@{} completionHandler:nil];
 }
 
 - (void)reportBug {
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/vanwijkdave"]  options:@{} completionHandler:nil];
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/vanwijkdave/Counted/issues"]  options:@{} completionHandler:nil];
 }
 
 

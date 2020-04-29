@@ -4,6 +4,7 @@ Depends: mobilesubstrate
 Version: 1
 Architecture: iphoneos-arm
 Description: Your days are Counted
+Support: https://github.com/vanwijkdave/Counted/issues
 Maintainer: Dave van Wijk
 Author: Dave van Wijk
 Section: Tweaks
