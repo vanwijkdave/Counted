@@ -6,6 +6,7 @@
   /Users/vanwijkdave/theos/vendor/include/HBLog.h \
   /Users/vanwijkdave/theos/vendor/include/CoreFoundation/CFLogUtilities.h \
   /Users/vanwijkdave/theos/vendor/lib/Cephei.framework/Headers/HBPreferences.h \
+  /Users/vanwijkdave/Documents/GitHub/counted/counted.h \
   /Users/vanwijkdave/theos/vendor/include/substrate.h
 
 /Users/vanwijkdave/theos/Prefix.pch:
@@ -19,5 +20,7 @@
 /Users/vanwijkdave/theos/vendor/include/CoreFoundation/CFLogUtilities.h:
 
 /Users/vanwijkdave/theos/vendor/lib/Cephei.framework/Headers/HBPreferences.h:
+
+/Users/vanwijkdave/Documents/GitHub/counted/counted.h:
 
 /Users/vanwijkdave/theos/vendor/include/substrate.h:

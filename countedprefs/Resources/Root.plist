@@ -20,13 +20,37 @@
 			<key>key</key>
 			<string>kEnabled</string>
 			<key>label</key>
-			<string>Enabled</string>
+			<string>Countdown clock enabled</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>me.daveapps.countedprefs</string>
+			<key>key</key>
+			<string>kReplaceHint</string>
+			<key>label</key>
+			<string>Replace swipe up text</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>me.daveapps.countedprefs</string>
+			<key>key</key>
+			<string>kPermanent</string>
+			<key>label</key>
+			<string>Permanently set time as countdown</string>
 		</dict>
 		<dict>
             <key>cell</key>
 		    <string>PSGroupCell</string>
             <key>footerText</key>
-            <string>When enabled, click on the clock to open the countdown, click on the clock again to close it</string>
+            <string>When clock is enabled, click on the clock to open the countdown, click on the clock again to close it</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -55,6 +79,8 @@
 			<string>pickDate</string>
 			<key>label</key>
 			<string>Select Date 🗓️</string>
+			<key>PostNotification</key>
+			<string>me.daveapps.countedprefs.settingsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -75,12 +101,15 @@
 			<string>kTextFormat</string>
 			<key>label</key>
 			<string>Text Format:</string>
+			<key>PostNotification</key>
+			<string>me.daveapps.countedprefs.settingsChanged</string>
 			<key>validValues</key>
         	<array>
 				<string>0</string>
 				<string>1</string>
 				<string>2</string>
 				<string>3</string>
+				<string>4</string>
     		</array>
        		<key>validTitles</key>
             <array>
@@ -88,6 +117,7 @@
 				<string>Days: X</string>
 				<string>~: X days</string>
 				<string>~: Xd</string>
+				<string>X Days Till ~</string>
            	</array>
 		</dict>
 		<dict>
@@ -117,6 +147,8 @@
             <string>me.daveapps.countedprefs</string>
             <key>key</key>
             <string>kAlign</string>
+			<key>PostNotification</key>
+			<string>me.daveapps.countedprefs.settingsChanged</string>
         </dict>
 		<dict>
 			<key>cell</key>
@@ -147,6 +179,8 @@
             <string>me.daveapps.countedprefs</string>
             <key>key</key>
             <string>kFont</string>
+			<key>PostNotification</key>
+			<string>me.daveapps.countedprefs.settingsChanged</string>
         </dict>
 		<dict>
 			<key>cell</key>

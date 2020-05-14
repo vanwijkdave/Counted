@@ -89,7 +89,7 @@ bool pickerActivated;
     [doneButton setTitle:@"Done" forState:UIControlStateNormal];
     [doneButton setTitleColor:[UIColor colorWithRed: 0.50 green: 0.81 blue: 0.84 alpha: 1.00] forState:UIControlStateNormal];
     doneButton.titleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
-    doneButton.backgroundColor = [UIColor colorWithRed: 0.60 green: 0.90 blue: 0.92 alpha: 0.50];
+    doneButton.backgroundColor = [UIColor colorWithRed: 0.60 green: 0.90 blue: 0.92 alpha: 0.30];
     doneButton.clipsToBounds = true;
     doneButton.layer.cornerRadius = 8;
 	[self.view addSubview: doneButton];

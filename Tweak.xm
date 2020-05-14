@@ -1,51 +1,7 @@
 #import <Cephei/HBPreferences.h>
+#import "counted.h"
 
-
-@interface _UILegibilitySettings
--(UIColor *)primaryColor;
-@end
-
-@interface SBUILegibilityLabel : UIView 
--(void)setString:(NSString *)arg1;
-@property (assign,nonatomic) long long textAlignment; 
--(_UILegibilitySettings *)legibilitySettings;
-@end
-
-@interface SBFLockScreenDateSubtitleView : UIView <UIGestureRecognizerDelegate>
--(NSString *)string;
--(void)_updateForCurrentSizeCategory;
-@end
-
-@interface SBFLockScreenDateSubtitleDateView : SBFLockScreenDateSubtitleView 
--(NSDate *)date;
--(void)setDate:(NSDate *)arg1 ;
-@end
-
-@interface BSUIScrollView : UIScrollView
-@end
-
-@interface SBFLockScreenDateView : UIView
-@end
-@interface CSCoverSheetViewBase : UIView 
-@end
-
-//things
-CGRect subFrame;
-bool addedView;
-UIView *touchView;
-HBPreferences *file;
-bool activated;
-UILabel *countDownLabel;
-CGRect oldFrame;
-
-
-
-//settings
-bool enabled;
-int chosenMode;
-int alignment;
-int font;
-NSDate *myDate;
+#define kSettingsChangedNotification (CFStringRef)@"me.daveapps.countedprefs.settingsChanged"
 
 %hook CSCoverSheetViewBase
 -(void)layoutSubviews {
@@ -90,79 +46,87 @@ NSDate *myDate;
 	//reconize notif	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openCountdown) name:@"com.counted.showCountdown" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeCountdown) name:@"com.counted.closeCountdown" object:nil];
+	
 	%orig;
 }
 
--(void)setDate:(NSDate *)arg1 {
-	activated = false;
-	[countDownLabel removeFromSuperview];
+-(void)didMoveToWindow {
+	
 	%orig;
+	[self applyCountdown];
+}
+
+-(void)layoutSubviews {
+	%orig;
+	SBUILegibilityLabel *label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+	//set label color
+	_UILegibilitySettings *settings = label.legibilitySettings;
+	countDownLabel.textColor = settings.primaryColor;
+}
+
+
+
+-(void)setDate:(NSDate *)arg1 {
+	%orig;
+
+	if (alwaysShowCountdown) {
+		SBUILegibilityLabel *label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		[label setString: @"                                            "];
+		self.frame = frame;
+	} else {
+		activated = false;
+		[countDownLabel removeFromSuperview];
+	}
 }
 -(void)_setDate:(NSDate *)arg1 inTimeZone:(id)arg2{
-	activated = false;
-	[countDownLabel removeFromSuperview];
-	%orig;
+		%orig;
+
+	if (!alwaysShowCountdown) {
+		activated = false;
+		[countDownLabel removeFromSuperview];
+	} else {
+		self.frame = frame;
+		SBUILegibilityLabel *label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+		[label setString: @"                                                   "];
+		self.frame = frame;
+	}
 }
 -(id)date {
-	activated = false;
-	countDownLabel.text = @"";
-	return %orig;
+	if (!alwaysShowCountdown) {
+		activated = false;
+		countDownLabel.text = @"                                            ";
+		return %orig;
+	} else {
+		self.frame = frame;
+		return nil;
+	}
 }
 %new
 -(void)closeCountdown {
-	[self setDate:self.date];
-	self.frame = oldFrame;
-	
-	activated = false;
+	if (!alwaysShowCountdown) {
+		[self setDate:self.date];
+		self.frame = oldFrame;
+		activated = false;
+	}
+
 }
 %new
 -(void)openCountdown {
-
-	enabled = [([file objectForKey:@"kEnabled"] ?: @(true)) boolValue];
-
-	//get chosen mode
-	chosenMode = [([file objectForKey:@"kTextFormat"] ?: @(0)) intValue];
-
-	//get chosen mode
-	font = [([file objectForKey:@"kFont"] ?: @(0)) intValue];
-
-	//set alignment
-	alignment = [([file objectForKey:@"kAlign"] ?: @(1)) intValue];
-
-	//get subject
-	NSString *subjectString = @"[blank]";
-	if ([file objectForKey:@"kSubject"] != nil) {
-		subjectString = [file objectForKey:@"kSubject"];
-	}
-
-	//get alignment
-
-
-	//set date shit
-	SBUILegibilityLabel *label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
-	if ([file objectForKey:@"kDate"] != nil) {
-		myDate = [file objectForKey:@"kDate"];
-	} else {
-		myDate = [NSDate date];                      
-	}
-	NSDate *startDate = [NSDate date];                      
-	NSTimeInterval secondsBetween = [myDate timeIntervalSinceDate:startDate];
-	int numberOfDays = secondsBetween / 86400;
-
 	//set it
 	if (enabled) {
-		NSString *dateString;
-		if (chosenMode == 0) {
-			dateString = [NSString stringWithFormat:@"Days Till %@: %d", subjectString ,numberOfDays];
-		} else if (chosenMode == 1) {
-			dateString = [NSString stringWithFormat:@"Days: %d", numberOfDays];
-		} else if (chosenMode == 2) {
-			dateString = [NSString stringWithFormat:@"%@: %d days", subjectString, numberOfDays];
-		} else if (chosenMode == 3) {
-			dateString = [NSString stringWithFormat:@"%@: %dd", subjectString, numberOfDays];
-		}
+		[self applyCountdown];
+	}
+}
 
-		CGRect frame = self.frame;
+%new 
+-(void)applyCountdown {
+	enabled = [([file objectForKey:@"kEnabled"] ?: @(true)) boolValue];
+	SBUILegibilityLabel *label = MSHookIvar<SBUILegibilityLabel *>(self, "_label");
+	retrieveDateStuff *getter = [[retrieveDateStuff alloc] init];
+
+		NSString* dateString = [getter getDateString];
+
+		frame = self.frame;
 		oldFrame = self.frame;
 		frame.size.width = 300;
 
@@ -175,7 +139,7 @@ NSDate *myDate;
 		countDownLabel.translatesAutoresizingMaskIntoConstraints = false;
     	[countDownLabel.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:0].active = YES;
    		[countDownLabel.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:0].active = YES;
-		[label setString: @""];
+		[label setString: @"    "];
 
 		//set label color
 		_UILegibilitySettings *settings = label.legibilitySettings;
@@ -195,24 +159,69 @@ NSDate *myDate;
 		
 		self.frame = frame;
 		activated = true;
-	}
-
-
 }
 
 %end
 
 
+%hook CSTeachableMomentsContainerView
+-(void)_layoutCallToActionLabel{
+
+	bool replaceHint = [([file objectForKey:@"kReplaceHint"] ?: @(true)) boolValue];
+	if (replaceHint) {
+		retrieveDateStuff *getter = [[retrieveDateStuff alloc] init];
+		NSString* dateString = [getter getDateString];
+		[self.callToActionLabel setString: dateString];
+	}
+	%orig;
+}
+%end
+
+%hook SBUICallToActionLabel
+-(void)layoutSubviews {
+	bool replaceHint = [([file objectForKey:@"kReplaceHint"] ?: @(true)) boolValue];
+	if (replaceHint) {
+		retrieveDateStuff *getter = [[retrieveDateStuff alloc] init];
+		NSString* dateString = [getter getDateString];
+		self.text = dateString;
+	}
+	%orig;
+}
+%end
+
+static void reloadPrefs() {
+		retrieveDateStuff *getter = [[retrieveDateStuff alloc] init];
+		NSString* dateString = [getter getDateString];
+		countDownLabel.text = dateString;
+
+		//font weight
+		if (font == 0) {
+			countDownLabel.font = [UIFont systemFontOfSize: 21];
+		} else if (font == 1) {
+			countDownLabel.font = [UIFont systemFontOfSize: 21 weight: UIFontWeightSemibold];
+		} else if (font == 2) {
+			countDownLabel.font = [UIFont systemFontOfSize: 21 weight: UIFontWeightBold];
+		} else if (font == 3) {
+			countDownLabel.font = [UIFont systemFontOfSize: 21 weight: UIFontWeightHeavy];
+		}
+
+		countDownLabel.textAlignment = alignment;
+}
+
 %ctor {
 	addedView = false;
 	activated = false;
+	alwaysShowCountdown = true;
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setYear:2021];
     [dateComponents setMonth:10];
     [dateComponents setDay:30];
 
+
     NSCalendar *calendar = [[NSCalendar alloc]  initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     myDate= [calendar dateFromComponents:dateComponents];
 	file = [[HBPreferences alloc] initWithIdentifier:@"me.daveapps.countedprefs"];
-	
+
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reloadPrefs, kSettingsChangedNotification, NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+
 }
